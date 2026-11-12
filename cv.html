@@ -27,7 +27,7 @@
   li { margin-bottom: 1px; }
   .skills div { margin-bottom: 3px; }
   .skills b { display: inline-block; min-width: 170px; }
-  a { color: inherit; text-decoration: none; }
+  a { color: #3B47B5; text-decoration: none; }
 </style>
 </head>
 <body>
@@ -36,14 +36,24 @@
 <script>
   const D = PORTFOLIO, esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const c = D.contact;
-  const contact = [c.email, c.phone, D.personal.location, c.portfolio && c.portfolio.replace(/^https?:\/\//, ""), c.github && c.github.replace(/^https?:\/\//, ""), c.linkedin && c.linkedin.replace(/^https?:\/\/(www\.)?/, "")].filter(Boolean);
+  // Each item: [text shown, link]. Links are clickable in the PDF.
+  const short = (u) => u.replace(/^https?:\/\/(www\.)?/, "");
+  const contact = [
+    c.email && [c.email, "mailto:" + c.email],
+    c.email2 && [c.email2, "mailto:" + c.email2],
+    c.phone && [c.phone, "tel:" + c.phone.replace(/[^\d+]/g, "")],
+    D.personal.location && [D.personal.location, ""],
+    c.portfolio && [short(c.portfolio), c.portfolio],
+    c.github && [short(c.github), c.github],
+    c.linkedin && [short(c.linkedin), c.linkedin],
+  ].filter(Boolean);
   // Only the first few key features of each project are printed, to keep the CV to one or two pages.
   const FEATURES_PER_PROJECT = 3;
   document.title = `${D.personal.name} — CV`;
   document.getElementById("cv").innerHTML = `
     <h1>${esc(D.personal.name)}</h1>
     <p class="title">${esc(D.personal.title)}</p>
-    <p class="contact">${contact.map((x) => `<span>${esc(x)}</span>`).join("")}</p>
+    <p class="contact">${contact.map(([t, h]) => `<span>${h ? `<a href="${esc(h)}">${esc(t)}</a>` : esc(t)}</span>`).join("")}</p>
     <h2>Profile</h2><p>${esc(D.personal.tagline)} ${esc(c.availability)}</p>
     <h2>Education</h2>
     ${D.education.map((e) => `<div class="proj"><h3>${esc(e.degree)} </h3><p class="tech">${[e.institution, e.department, e.location].filter(Boolean).map(esc).join(", ")}</p>
@@ -56,7 +66,7 @@
       <p class="tech">${p.tech.map(esc).join(", ")}</p>
       <p>${esc(p.summary)}</p>
       <ul>${p.features.slice(0, FEATURES_PER_PROJECT).map((f) => `<li>${esc(f)}</li>`).join("")}</ul>
-      <p class="tech">${[p.github && "Code: " + p.github.replace(/^https?:\/\//, ""), p.live && "Live: " + p.live.replace(/^https?:\/\//, "")].filter(Boolean).map(esc).join(" · ")}</p>
+      <p class="tech">${[p.github && `Code: <a href="${esc(p.github)}">${esc(short(p.github))}</a>`, p.live && `Live: <a href="${esc(p.live)}">${esc(short(p.live))}</a>`].filter(Boolean).join(" · ")}</p>
     </div>`).join("")}
     <h2>Skills</h2>
     <div class="skills">${D.skills.map((g) => `<div><b>${esc(g.group)}:</b> ${g.items.map(esc).join(", ")}</div>`).join("")}</div>`;
