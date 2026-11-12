@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CV</title>
+<!-- PRINTABLE CV
+     This page builds your CV from js/data.js (the same file as the website).
+     To make a new PDF after editing data.js:
+       1. Open cv.html in Chrome or Edge.
+       2. Press Ctrl+P, choose "Save as PDF", paper A4, margins "Default".
+       3. Save it as assets/cv/Sadia_Rakhi_CV.pdf (replace the old file). -->
+<style>
+  @page { size: A4; margin: 12mm 14mm; }
+  * { box-sizing: border-box; }
+  body { font-family: Arial, "Liberation Sans", Helvetica, sans-serif; color: #1A2033; font-size: 9.2pt; line-height: 1.34; margin: 0; }
+  h1 { font-size: 22pt; margin: 0; color: #0B0F1A; }
+  .title { color: #8A6420; font-weight: 600; margin: 2px 0 6px; }
+  .contact { color: #5B6276; font-size: 9.2pt; }
+  .contact span + span::before { content: " · "; }
+  h2 { font-size: 10.5pt; text-transform: uppercase; letter-spacing: .12em; color: #3B47B5; border-bottom: 1.5px solid #D9DDF0; padding-bottom: 3px; margin: 10px 0 5px; }
+  p { margin: 0 0 6px; }
+  .proj { margin-bottom: 9px; page-break-inside: avoid; }
+  .proj h3 { font-size: 11pt; margin: 0; }
+  .proj h3 small { font-weight: 400; color: #5B6276; }
+  .tech { color: #5B6276; font-size: 9pt; margin: 2px 0 3px; }
+  ul { margin: 2px 0 0; padding-left: 16px; }
+  li { margin-bottom: 1px; }
+  .skills div { margin-bottom: 3px; }
+  .skills b { display: inline-block; min-width: 170px; }
+  a { color: inherit; text-decoration: none; }
+</style>
+</head>
+<body>
+<div id="cv"></div>
+<script src="js/data.js"></script>
+<script>
+  const D = PORTFOLIO, esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const c = D.contact;
+  const contact = [c.email, c.phone, D.personal.location, c.github && c.github.replace(/^https?:\/\//, ""), c.linkedin && c.linkedin.replace(/^https?:\/\/(www\.)?/, "")].filter(Boolean);
+  // Only the first few key features of each project are printed, to keep the CV to one or two pages.
+  const FEATURES_PER_PROJECT = 3;
+  document.title = `${D.personal.name} — CV`;
+  document.getElementById("cv").innerHTML = `
+    <h1>${esc(D.personal.name)}</h1>
+    <p class="title">${esc(D.personal.title)}</p>
+    <p class="contact">${contact.map((x) => `<span>${esc(x)}</span>`).join("")}</p>
+    <h2>Profile</h2><p>${esc(D.personal.tagline)} ${esc(c.availability)}</p>
+    <h2>Education</h2>
+    ${D.education.map((e) => `<div class="proj"><h3>${esc(e.degree)} </h3><p class="tech">${[e.institution, e.department, e.location].filter(Boolean).map(esc).join(", ")}</p>
+      <p class="tech">${[e.status, e.period].filter(Boolean).map(esc).join(" · ")}</p>
+      ${e.details?.length ? `<ul>${e.details.map((d) => `<li>${esc(d)}</li>`).join("")}</ul>` : ""}</div>`).join("")}
+    <h2>Projects</h2>
+    ${[...D.projects].sort((a, b) => Number(!!b.featured) - Number(!!a.featured)).map((p) => `<div class="proj">
+      <h3>${esc(p.name)} <small>— ${esc(p.subtitle)}</small></h3>
+      ${p.meta?.length ? `<p class="tech">${p.meta.map((x) => esc(x.label) + ": " + esc(x.value)).join(" · ")}</p>` : ""}
+      <p class="tech">${p.tech.map(esc).join(", ")}</p>
+      <p>${esc(p.summary)}</p>
+      <ul>${p.features.slice(0, FEATURES_PER_PROJECT).map((f) => `<li>${esc(f)}</li>`).join("")}</ul>
+      <p class="tech">${[p.github && "Code: " + p.github.replace(/^https?:\/\//, ""), p.live && "Live: " + p.live.replace(/^https?:\/\//, "")].filter(Boolean).map(esc).join(" · ")}</p>
+    </div>`).join("")}
+    <h2>Skills</h2>
+    <div class="skills">${D.skills.map((g) => `<div><b>${esc(g.group)}:</b> ${g.items.map(esc).join(", ")}</div>`).join("")}</div>`;
+</script>
+</body>
+</html>

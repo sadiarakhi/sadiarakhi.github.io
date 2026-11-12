@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Page title and description for Google and link previews.
+       These are filled in automatically from js/data.js, but you can also edit them here. -->
+  <title>Sadia Rakhi — Full-Stack Web Developer</title>
+  <meta name="description" content="Portfolio of Sadia Rakhi, aspiring software developer and full-stack web developer (Node.js, Express, MySQL).">
+  <meta name="theme-color" content="#0B0F1A">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ===================== NAVIGATION ===================== -->
+  <header class="nav" id="nav">
+    <div class="container nav__inner">
+      <a href="#home" class="nav__brand" aria-label="Home">
+        <span class="nav__logo" data-bind="initials"></span>
+        <span class="nav__name" data-bind="name"></span>
+      </a>
+      <nav class="nav__links" id="navLinks" aria-label="Main">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+        <a class="btn btn--small btn--gold" data-cv download>Download CV</a>
+      </nav>
+      <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ===================== HERO ===================== -->
+    <section class="hero" id="home">
+      <div class="hero__glow hero__glow--a" aria-hidden="true"></div>
+      <div class="hero__glow hero__glow--b" aria-hidden="true"></div>
+      <div class="hero__grid" aria-hidden="true"></div>
+      <div class="container hero__inner">
+        <div class="hero__text">
+          <p class="hero__hello reveal">Hello, I'm</p>
+          <h1 class="hero__name reveal" data-bind="name"></h1>
+          <p class="hero__role reveal"><span id="roleText"></span><span class="caret" aria-hidden="true"></span></p>
+          <p class="hero__tagline reveal" data-bind="tagline"></p>
+          <div class="hero__actions reveal">
+            <a href="#projects" class="btn btn--gold">View my projects</a>
+            <a class="btn btn--ghost" data-cv download>Download CV</a>
+            <a class="icon-link" data-link="github" target="_blank" rel="noopener" aria-label="GitHub profile"></a>
+          </div>
+        </div>
+        <div class="hero__card reveal" aria-hidden="true">
+          <div class="code-card">
+            <div class="code-card__bar"><i></i><i></i><i></i><span>server.js</span></div>
+            <pre class="code-card__body" id="codeCard"></pre>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <ul class="hero__stats" id="heroStats"></ul>
+      </div>
+    </section>
+
+    <!-- ===================== ABOUT ===================== -->
+    <section class="section" id="about">
+      <div class="container">
+        <header class="section__head reveal" data-section="about"></header>
+        <div class="about">
+          <div class="about__photo reveal" id="aboutPhoto"></div>
+          <div class="about__text reveal" id="aboutText"></div>
+          <ul class="about__facts reveal" id="aboutFacts"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SKILLS ===================== -->
+    <section class="section section--tint" id="skills">
+      <div class="container">
+        <header class="section__head reveal" data-section="skills"></header>
+        <div class="skills" id="skillsGrid"></div>
+      </div>
+    </section>
+
+    <!-- ===================== PROJECTS ===================== -->
+    <section class="section" id="projects">
+      <div class="container">
+        <header class="section__head reveal" data-section="projects"></header>
+        <div id="projectList"></div>
+      </div>
+    </section>
+
+    <!-- ===================== EDUCATION ===================== -->
+    <section class="section section--tint" id="education">
+      <div class="container">
+        <header class="section__head reveal" data-section="education"></header>
+        <ol class="timeline" id="educationList"></ol>
+      </div>
+    </section>
+
+    <!-- ===================== CONTACT ===================== -->
+    <section class="section section--dark" id="contact">
+      <div class="container contact">
+        <div class="contact__intro reveal">
+          <header class="section__head section__head--left" data-section="contact"></header>
+          <p class="contact__availability" data-bind="availability"></p>
+          <ul class="contact__list" id="contactList"></ul>
+        </div>
+        <!-- This form opens the visitor's email app with the message filled in.
+             It needs no server, so it works on GitHub Pages and any static host. -->
+        <form class="contact__form reveal" id="contactForm" novalidate>
+          <label>Your name<input name="name" required autocomplete="name"></label>
+          <label>Your email<input name="email" type="email" required autocomplete="email"></label>
+          <label>Message<textarea name="message" rows="5" required></textarea></label>
+          <button class="btn btn--gold" type="submit">Send message</button>
+          <p class="contact__hint" id="formHint" role="status"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p>© <span id="year"></span> <span data-bind="name"></span>. Built with HTML, CSS and JavaScript.</p>
+      <a href="#home" class="footer__top">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <!-- Image viewer for project screenshots -->
+  <div class="lightbox" id="lightbox" hidden>
+    <button class="lightbox__close" aria-label="Close">×</button>
+    <img alt="">
+    <p class="lightbox__caption"></p>
+  </div>
+
+  <!-- Your content (edit this file) -->
+  <script src="js/data.js"></script>
+  <!-- Website logic (no need to edit) -->
+  <script src="js/main.js"></script>
+</body>
+</html>
