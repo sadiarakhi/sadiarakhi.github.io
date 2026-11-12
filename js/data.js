@@ -51,6 +51,7 @@ const PORTFOLIO = {
   /* ---------------------------------------------------------------------- */
   contact: {
     email: "sadiarakhibu202211062130@gmail.com",
+    email2: "",                             // optional second email — leave "" to hide
     phone: "+880 1517-833646",              // leave "" to remove it everywhere
     // true  = phone shows on the website AND the CV
     // false = phone shows ONLY on the CV (the website is public, so this avoids spam calls)
@@ -117,7 +118,7 @@ const PORTFOLIO = {
       // Small facts shown above the description (add, remove or edit freely):
       meta: [
         { label: "Project type", value: "Final Year Project" },
-        { label: "Supervisor", value: "Khandakar Tanha Tasnia, Lecturer, Department of CSE, Bangladesh University" },
+        { label: "Supervisor", value: "Khandaker Tanha Tasnia, Lecturer, Department of CSE, Bangladesh University" },
         { label: "Status", value: "In Progress" },          // e.g. "Completed" after your result
       ],
       subtitle: "Multi-Vendor E-Commerce Marketplace",
@@ -205,7 +206,7 @@ const PORTFOLIO = {
       status: "Coursework Completed – Final Year Project in Progress",  // e.g. "Completed" after your result
       period: "Expected Graduation: 2026",                              // e.g. "Graduated: 2026" or "CGPA: 3.50"
       details: [
-        "Final year project: Vendora — Multi-Vendor E-Commerce Marketplace (supervised by Khandakar Tanha Tasnia)",
+        "Final year project: Vendora — Multi-Vendor E-Commerce Marketplace (supervised by Khandaker Tanha Tasnia)",
         "Academic project: CareLink — Home Nursing Service Web Application (supervised by Akash Kumar Pal)",
       ],
     },
