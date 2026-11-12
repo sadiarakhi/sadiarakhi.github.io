@@ -36,7 +36,7 @@
 <script>
   const D = PORTFOLIO, esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const c = D.contact;
-  const contact = [c.email, c.phone, D.personal.location, c.github && c.github.replace(/^https?:\/\//, ""), c.linkedin && c.linkedin.replace(/^https?:\/\/(www\.)?/, "")].filter(Boolean);
+  const contact = [c.email, c.phone, D.personal.location, c.portfolio && c.portfolio.replace(/^https?:\/\//, ""), c.github && c.github.replace(/^https?:\/\//, ""), c.linkedin && c.linkedin.replace(/^https?:\/\/(www\.)?/, "")].filter(Boolean);
   // Only the first few key features of each project are printed, to keep the CV to one or two pages.
   const FEATURES_PER_PROJECT = 3;
   document.title = `${D.personal.name} — CV`;

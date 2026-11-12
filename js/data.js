@@ -55,6 +55,8 @@ const PORTFOLIO = {
     // true  = phone shows on the website AND the CV
     // false = phone shows ONLY on the CV (the website is public, so this avoids spam calls)
     showPhoneOnWebsite: false,
+    // Your live portfolio address (shown on the CV):
+    portfolio: "https://sadiarakhi.github.io",
     github: "https://github.com/sadiarakhi",
     // ↓ YOUR LINKEDIN: if your profile link ever changes, paste the new link here.
     linkedin: "https://www.linkedin.com/in/sadia-afrose-755332382",
